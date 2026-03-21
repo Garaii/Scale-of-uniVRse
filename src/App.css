@@ -6,9 +6,9 @@
 
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: #e0e0e0;
+    background-color: #3f3f3f;
     background-image: 
-        linear-gradient(135deg, #7d2e717e, #e7217084);
+        linear-gradient(135deg, #5223637e, #29008984);
     min-height: 100vh;
     background-attachment: fixed;
     background-size: cover;
@@ -16,51 +16,37 @@ body {
 }
 
 /* =========================
-   FORM PAGE (A3.html)
+  FORM PAGE (A3.html)
 ============================ */
-    .contact-details{
-        margin-top: 50px;
-    }
-    .contact-item{
-        display: flex;
-        align-items: center;
-        gap:14px;
-        margin-bottom:8px;
-        font-size: 17px;
-    }
+  .contact-details{
+      margin-top: 50px;
+  }
+  .contact-item{
+      display: flex;
+      align-items: center;
+      gap:14px;
+      margin-bottom:8px;
+      font-size: 17px;
+  }
 
-    .icon {
-        font-size: 21px;
-        width: 30px; /* spcace out icon + text*/
-        text-align: center;
-    }
-    .contact-item a {
-        color: rgb(40, 7, 49);
-    }
-    .logo {
-        height: 100px;
-        width: auto;
-        display:block;
-        margin: 30px auto 0 auto;
+  .icon {
+    font-size: 21px;
+    width: 30px; /* spcace out icon + text*/
+    text-align: center;
+  }
+  .contact-item a {
+      color: rgb(40, 7, 49);
+  }
+  .logo {
+    height: 100px;
+    width: auto;
+    display:block;
+    margin: 30px auto 0 auto;
 
-    }
+  }
 
 /*++++++++++++++++++++++== MAIN FORM CONTAINER ==+++++++++++++++++++*/
-.main-page {
-    
 
-    background: white;
-    max-width: 1200px;
-   
-    margin: 0 auto;
-    padding: 20px;
-    border-radius: 20px;
-    transform-origin: top center;
-    box-shadow: 
-        0 2px 4px rgba(0,0,0,0.04),
-        0 8px 16px rgba(0,0,0,0.08),
-        0 0 0 1px rgba(46, 125, 50, 0.08);
-}
 
 .form-layout{
     display: flex;
@@ -68,62 +54,63 @@ body {
 
 }
 
-    .left-pannel{
-        
-        width: 40%; /*purple part takes up 35% of the form*/
-        background: #efd5f7;
-        color: white;
-        border-radius: 20px;
-        padding: 40px 40px 40px 40px;
-        /*fixing layout below*/
-        position: relative;
-    /* max-height: 830px;
-        box-shadow: 
-            0 2px 4px rgba(0,0,0,0.04),
-            0 8px 16px rgba(0,0,0,0.08),
-            0 0 0 1px rgba(46, 125, 50, 0.08);  */
-    }
+.left-pannel{
+    
+    width: 40%; /*purple part takes up 35% of the form*/
+    background: #efd5f7;
+    color: white;
+    border-radius: 20px;
+    padding: 40px 40px 40px 40px;
+    /*fixing layout below*/
+    position: relative;
+/* max-height: 830px;
+    box-shadow: 
+        0 2px 4px rgba(0,0,0,0.04),
+        0 8px 16px rgba(0,0,0,0.08),
+        0 0 0 1px rgba(46, 125, 50, 0.08);  */
+}
 
-    .logo-container{
-        margin-top: 30px;
-    }
-    .right-pannel{
-        background: white;
-        width: 70%;
-        margin: 0 auto;
-        
-        padding: 40px 40px 40px 40px;
-        border-radius: 20px;
-        box-shadow: 
-            0 2px 4px rgba(0,0,0,0.04),
-            0 8px 16px rgba(0,0,0,0.08),
-            0 0 0 1px rgba(115, 115, 115, 0.08);
-    }
-        .left-pannel h1 {
-            margin: 0 0 40px 0;
-            font-size:49px;
-            line-height:1.1; /*spacing, to make it look better*/
-        }
 
-        .left-pannel p {
-            margin: 0 0 22px 0;
-            font-size: 15.5px;
-            line-height: 1.7;
-            color: #ffffff;
-        }
+.logo-container{
+    margin-top: 30px;
+}
+.right-pannel{
+    background: white;
+    width: 70%;
+    margin: 0 auto;
+    
+    padding: 40px 40px 40px 40px;
+    border-radius: 20px;
+    box-shadow: 
+        0 2px 4px rgba(0,0,0,0.04),
+        0 8px 16px rgba(0,0,0,0.08),
+        0 0 0 1px rgba(115, 115, 115, 0.08);
+}
+.left-pannel h1 {
+    margin: 0 0 40px 0;
+    font-size:49px;
+    line-height:1.1; /*spacing, to make it look better*/
+}
+
+.left-pannel p {
+  margin: 0 0 22px 0;
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: #ffffff;
+}
         
-        .left-pannel::after {
-            content: "";
-            position: absolute;
-            width: 490px;
-            height: 220px;
-            display: none;
-            background-image: url("UHnoback.png");
-            background-size: 40%; /*of the container*/
-            background-repeat: no-repeat;
-            bottom:15px;
-            right:-150px; 
-            pointer-events:none;}
+.left-pannel::after {
+    content: "";
+    position: absolute;
+    width: 490px;
+    height: 220px;
+    display: none;
+    background-image: url("UHnoback.png");
+    background-size: 40%; /*of the container*/
+    background-repeat: no-repeat;
+    bottom:15px;
+    right:-150px; 
+    pointer-events:none;}
 
 
 
@@ -178,29 +165,29 @@ label {
 }
 
 /*responsive tablet +laptops*/
-    @media (max-width: 900px) {
-        .form-layout {
-            flex-direction: column; /*vertical stack*/
-        }
-
-        .left-pannel, .right-pannel {
-            width: 100%; /*both take full width of screen*/
-        }
-
-        
+@media (max-width: 900px) {
+    .form-layout {
+        flex-direction: column; /*vertical stack*/
     }
 
-    /*responsive for phones*/
-    @media (max-width: 640px) {
-        .form-row {
-            flex-direction: column;
-            gap:20px;
-        }
-
-        .left-pannel h1 { /*making main heading smaller for phone -> looks better*/
-            font-size: 30px;
-        }
+    .left-pannel, .right-pannel {
+        width: 100%; /*both take full width of screen*/
     }
+
+    
+}
+
+/*responsive for phones*/
+@media (max-width: 640px) {
+    .form-row {
+        flex-direction: column;
+        gap:20px;
+    }
+
+    .left-pannel h1 { /*making main heading smaller for phone -> looks better*/
+        font-size: 30px;
+    }
+}
 
 
 /* --------------- Inputs, Selects, Textarea ----------------- */
@@ -254,32 +241,32 @@ select {
     color: #94375f;
 }
 /*--------- Button to submit other form--------------*/
-    .back-button {
-        display: inline-block;
-        padding: 12px 28px;
-        background-color: #c172d4;
-        color: white;
-        text-decoration: none;
-        border-radius: 6px;
-        font-weight: 600;
-        font-size: 0.95rem;
-    }
+.back-button {
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: #c172d4;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
 
 /* ---------------- Submit Button --------------------------*/
 input[type="submit"] {
-    width: 100%;
-    padding: 14px;
-    background: linear-gradient(135deg, #7d2e71, #e72170);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 10px;
-    letter-spacing: 0.5px;
-    transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
-    box-shadow: 0 4px 12px  rgba(107, 46, 125, 0.3);
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #7d2e71, #e72170);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  letter-spacing: 0.5px;
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px  rgba(107, 46, 125, 0.3);
 }
 
 input[type="submit"]:hover {
@@ -356,6 +343,7 @@ input[type="submit"]:active {
 /*@@@@@@@@@@@@@@------------ LOADING PAGE --------------------@@@@@@@@@@@@@*/
 .title-loading{
   font-family: "Orbitron";
+  size: ;
 }
 
 @keyframes spin {
@@ -375,3 +363,76 @@ input[type="submit"]:active {
   to { width: 100%; }
 }
 .progress { animation: fill-bar 5s linear forwards; }
+
+
+
+/*########################### MENU PAGE 1 #######################*/
+
+.main-page{
+  margin:0 auto;      
+  width: 100%; 
+  background: #9a70a7;
+  color: white;
+  border-radius: 20px;
+  padding: 40px 40px 40px 40px;
+  /*fixing layout below*/
+  
+  min-height: 100vh;
+    display: flex;
+    flex-direction: row;        /* side by side on desktop */
+    justify-content: center;    /* centers horizontally */
+    align-items: center;        /* centers vertically if needed */
+    flex-wrap: wrap; 
+  /*transform-origin: top center;*/
+  /* max-height: 830px;
+  box-shadow: 
+      0 2px 4px rgba(0,0,0,0.04),
+      0 8px 16px rgba(0,0,0,0.08),
+      0 0 0 1px rgba(46, 125, 50, 0.08);  */
+}
+  .section-box{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;        /* side by side on desktop */
+    justify-content: center;    /* centers horizontally */
+    align-items: center;        /* centers vertically if needed */
+    flex-wrap: wrap; 
+    text-align: center;
+    width: 100%;
+    padding: 100px;
+    border-radius: 12px;
+    background:#0b0a1a;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+/*.main-page {
+    
+
+    background: white;
+    max-width: 1200px;
+   
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 20px;
+    transform-origin: top center;
+    box-shadow: 
+        0 2px 4px rgba(0,0,0,0.04),
+        0 8px 16px rgba(0,0,0,0.08),
+        0 0 0 1px rgba(46, 125, 50, 0.08);
+}*/
+.start-button{
+  
+  width: 100%;
+  height: 55px;
+  padding: 14px;
+  background: linear-gradient(135deg, #13005e, #310136);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  letter-spacing: 0.5px;
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px  rgba(107, 46, 125, 0.3);
+}

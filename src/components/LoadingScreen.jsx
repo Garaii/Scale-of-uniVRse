@@ -5,6 +5,8 @@ export default function LoadingScreen() {
         <div className="planet">
             <div className="crater" />
             <div className="crater crater-2" />
+            <div className="crater crater-3" />
+            <div className="crater crater-4" />
         </div>
         <div className="orbit">
             <div className="moon" />

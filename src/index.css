@@ -1,5 +1,7 @@
+
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
 body {
   background: #03060f;
   color: #e6edf3;
@@ -108,6 +110,19 @@ body {
   top: 40px;
   left: 38px;
 }
+.crater-3 {
+  width: 5px;
+  height: 5px;
+  top: 45px;
+  left: 15px;
+}
+
+.crater-4 {
+  width: 3px;
+  height: 3px;
+  top: 42px;
+  left: 25px;
+}
 
 .orbit {
   position: absolute;
@@ -135,4 +150,159 @@ body {
 @keyframes orbit-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+/* ===== APP SHELL ===== */
+.app-shell {
+  min-height: 100dvh;
+  background: #03060f;
+  position: relative;
+}
+
+/* ===== LOGO PAGE ===== */
+.logo-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  gap: 36px;
+  overflow: hidden;
+  padding: 40px 20px;
+  background: radial-gradient(ellipse at top, #1a0b2e 0%, #03060f 60%);
+}
+
+/* ===== LOGO PLANET (bigger than loading) ===== */
+.logo-planet-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-planet {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #6a3de8, #1a0b5e);
+  box-shadow: 0 0 60px rgba(106, 61, 232, 0.6),
+              inset -14px -14px 28px rgba(0,0,0,0.5);
+  position: relative;
+  animation: planet-float 4s ease-in-out infinite;
+  z-index: 2;
+}
+
+@keyframes planet-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-14px); }
+}
+
+/* Saturn-like ring */
+.logo-ring {
+  position: absolute;
+  width: 180px;
+  height: 40px;
+  border-radius: 50%;
+  border: 6px solid rgba(180, 120, 255, 0.35);
+  transform: rotateX(70deg);
+  z-index: 1;
+  box-shadow: 0 0 20px rgba(180, 120, 255, 0.2);
+}
+
+.logo-orbit {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(180, 120, 255, 0.2);
+  animation: orbit-spin 4s linear infinite;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+
+/* ===== LOGO TEXT ===== */
+.logo-text {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 2;
+}
+
+.logo-sub {
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: #a78bfa;
+}
+
+.logo-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 34px;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.2;
+  text-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
+}
+
+.logo-slogan {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: #f0b429;
+  margin-top: 4px;
+}
+
+/* ===== START BUTTON ===== */
+.start-btn {
+  font-family: 'Orbitron', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: #ffffff;
+  background: linear-gradient(135deg, #13005e, #5223637e);
+  border: 1.5px solid rgba(167, 139, 250, 0.5);
+  padding: 18px 56px;
+  border-radius: 50px;
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+  animation: btn-pulse 2s ease-in-out infinite;
+  transition: transform 0.15s;
+}
+
+.start-btn:hover {
+  transform: translateY(-2px);
+}
+
+.start-btn:active {
+  transform: scale(0.96);
+}
+
+@keyframes btn-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
+  50% { box-shadow: 0 0 50px rgba(139, 92, 246, 0.7); }
+}
+
+/* ===== STARS ===== */
+.stars-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 1; }
 }
