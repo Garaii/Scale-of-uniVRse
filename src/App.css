@@ -1,0 +1,353 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #e0e0e0;
+    background-image: 
+        linear-gradient(135deg, #7d2e717e, #e7217084);
+    min-height: 100vh;
+    background-attachment: fixed;
+    background-size: cover;
+    padding: 40px 20px;
+}
+
+/* =========================
+   FORM PAGE (A3.html)
+============================ */
+    .contact-details{
+        margin-top: 50px;
+    }
+    .contact-item{
+        display: flex;
+        align-items: center;
+        gap:14px;
+        margin-bottom:8px;
+        font-size: 17px;
+    }
+
+    .icon {
+        font-size: 21px;
+        width: 30px; /* spcace out icon + text*/
+        text-align: center;
+    }
+    .contact-item a {
+        color: rgb(40, 7, 49);
+    }
+    .logo {
+        height: 100px;
+        width: auto;
+        display:block;
+        margin: 30px auto 0 auto;
+
+    }
+
+/*++++++++++++++++++++++== MAIN FORM CONTAINER ==+++++++++++++++++++*/
+.form-box {
+    
+
+    background: white;
+    max-width: 1200px;
+   
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 20px;
+    transform-origin: top center;
+    box-shadow: 
+        0 2px 4px rgba(0,0,0,0.04),
+        0 8px 16px rgba(0,0,0,0.08),
+        0 0 0 1px rgba(46, 125, 50, 0.08);
+}
+
+.form-layout{
+    display: flex;
+    gap: 20px;
+
+}
+
+    .left-pannel{
+        
+        width: 40%; /*purple part takes up 35% of the form*/
+        background: #efd5f7;
+        color: white;
+        border-radius: 20px;
+        padding: 40px 40px 40px 40px;
+        /*fixing layout below*/
+        position: relative;
+    /* max-height: 830px;
+        box-shadow: 
+            0 2px 4px rgba(0,0,0,0.04),
+            0 8px 16px rgba(0,0,0,0.08),
+            0 0 0 1px rgba(46, 125, 50, 0.08);  */
+    }
+
+    .logo-container{
+        margin-top: 30px;
+    }
+    .right-pannel{
+        background: white;
+        width: 70%;
+        margin: 0 auto;
+        
+        padding: 40px 40px 40px 40px;
+        border-radius: 20px;
+        box-shadow: 
+            0 2px 4px rgba(0,0,0,0.04),
+            0 8px 16px rgba(0,0,0,0.08),
+            0 0 0 1px rgba(115, 115, 115, 0.08);
+    }
+        .left-pannel h1 {
+            margin: 0 0 40px 0;
+            font-size:49px;
+            line-height:1.1; /*spacing, to make it look better*/
+        }
+
+        .left-pannel p {
+            margin: 0 0 22px 0;
+            font-size: 15.5px;
+            line-height: 1.7;
+            color: #ffffff;
+        }
+        
+        .left-pannel::after {
+            content: "";
+            position: absolute;
+            width: 490px;
+            height: 220px;
+            display: none;
+            background-image: url("UHnoback.png");
+            background-size: 40%; /*of the container*/
+            background-repeat: no-repeat;
+            bottom:15px;
+            right:-150px; 
+            pointer-events:none;}
+
+
+
+
+/* ------------- Form Header ------------- */ 
+
+.form-header {
+   
+    text-align: center;
+    margin-bottom: 36px;
+    padding-bottom: 28px;
+    border-bottom: 2px solid #ffdeee;
+}
+
+.form-header h1 {
+    color: #641635;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    /*letter-spacing: -0.5px;*/
+}
+
+.form-header p {
+    color: #888;
+    font-size: 1rem;
+}
+
+/*we want to make sure the form can adapt to the size of the screen*/
+.form-row {
+    display: flex;
+
+    gap: 18px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Labels */
+label {
+    display: block;
+    font-weight: 600;
+    color: #94375f;
+    margin-bottom: 6px;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/*responsive tablet +laptops*/
+    @media (max-width: 900px) {
+        .form-layout {
+            flex-direction: column; /*vertical stack*/
+        }
+
+        .left-pannel, .right-pannel {
+            width: 100%; /*both take full width of screen*/
+        }
+
+        
+    }
+
+    /*responsive for phones*/
+    @media (max-width: 640px) {
+        .form-row {
+            flex-direction: column;
+            gap:20px;
+        }
+
+        .left-pannel h1 { /*making main heading smaller for phone -> looks better*/
+            font-size: 30px;
+        }
+    }
+
+
+/* --------------- Inputs, Selects, Textarea ----------------- */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea {
+    width: 100%;
+    padding: 11px 16px;
+    border: 2px solid #f5e8f1;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    color: #333;
+    background-color: #f6c9ef7b;
+    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+select:focus,
+textarea:focus {
+    border-color: #57244d;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(219, 179, 242, 0.12);
+    background-color: white;
+}
+
+input[type="text"]:hover,
+input[type="email"]:hover,
+input[type="phone"]:hover,
+select:hover,
+textarea:hover {
+    border-color: #e5c9ff;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-caret-down-fill' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+    color: #94375f;
+}
+/*--------- Button to submit other form--------------*/
+    .back-button {
+        display: inline-block;
+        padding: 12px 28px;
+        background-color: #c172d4;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+
+/* ---------------- Submit Button --------------------------*/
+input[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #7d2e71, #e72170);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+    transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px  rgba(107, 46, 125, 0.3);
+}
+
+input[type="submit"]:hover {
+    opacity: 0.92;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px  rgba(107, 46, 125, 0.3);
+}
+
+input[type="submit"]:active {
+    transform: translateY(0px);
+    box-shadow: 0 2px 6px  rgba(107, 46, 125, 0.3);
+}
+
+/*================= for the table csv ================*/
+
+.submitted-form-container{
+    background-repeat: no-repeat;
+}
+
+.title-form{
+   color:#ffffff; 
+}
+.table-contents {
+    overflow-x: auto;
+    margin-bottom: 30px;
+    border-radius: 4;
+    border: 1px solid #e0e0e0;
+    }
+
+    
+    table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    }
+
+    thead tr {
+    background-color: #7d2e6b;
+    color: white;
+    }
+
+    thead th {
+    padding: 13px 15px;
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+    }
+
+    tbody td {
+    padding: 11px 15px;
+    border-bottom: 1px solid #eeeeee;
+    vertical-align: top;
+    max-width: 200px;
+    word-wrap: break-word;
+    }
+
+    /* Alternating row colors */
+    .row-even {
+    background-color: #f7b8f28a;
+    }
+
+    .row-odd {
+    background-color: #ffffff;
+    }
+
+    tbody tr:hover {
+    background-color: #e7c8ed;
+    transition: background-color 0.15s;
+    }
+
+    
