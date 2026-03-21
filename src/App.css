@@ -46,7 +46,7 @@ body {
     }
 
 /*++++++++++++++++++++++== MAIN FORM CONTAINER ==+++++++++++++++++++*/
-.form-box {
+.main-page {
     
 
     background: white;
@@ -349,5 +349,29 @@ input[type="submit"]:active {
     background-color: #e7c8ed;
     transition: background-color 0.15s;
     }
+/*++++++++++++++++++++++++-------------------------------APP CSS---------------------------------------+++++++++++++++++++*/
 
-    
+
+
+/*@@@@@@@@@@@@@@------------ LOADING PAGE --------------------@@@@@@@@@@@@@*/
+.title-loading{
+  font-family: "Orbitron";
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.spinner { animation: spin 3s linear infinite; }
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px #58a6ff; }
+  50% { box-shadow: 0 0 60px #58a6ff; }
+}
+
+
+@keyframes fill-bar {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+.progress { animation: fill-bar 5s linear forwards; }

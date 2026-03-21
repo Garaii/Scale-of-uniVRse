@@ -1,1 +1,138 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+body {
+  background: #03060f;
+  color: #e6edf3;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+/* ===== LOADING SCREEN ===== */
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+  gap: 24px;
+  background: var(--bg);
+  padding: 32px;
+}
+
+.spinner {
+  font-size: 80px;
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loading-screen h1 {
+  font-family: "Orbitron";
+  font-size: 22px;
+  font-weight: 900;
+  text-align: center;
+  color: var(--text);
+  letter-spacing: 0.05em;
+}
+
+.loading-screen p {
+  font-size: 13px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+
+.progress-bar {
+  width: 80%;
+  max-width: 300px;
+  height: 6px;
+  background: #1e2a3a;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: #58a6ff;
+  border-radius: 4px;
+  animation: fill-bar 5s linear forwards;
+  box-shadow: 0 0 10px #58a6ff;
+}
+
+@keyframes fill-bar {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+
+/* ===== PLANET ===== */
+.planet-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.planet {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #4a90d9, #1a3a6b);
+  box-shadow: 0 0 30px rgba(88, 166, 255, 0.5),
+              inset -10px -10px 20px rgba(0,0,0,0.4);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.crater {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.2);
+  top: 20px;
+  left: 18px;
+  box-shadow: inset 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.crater-2 {
+  width: 8px;
+  height: 8px;
+  top: 40px;
+  left: 38px;
+}
+
+.orbit {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(88, 166, 255, 0.3);
+  animation: orbit-spin 3s linear infinite;
+  top: 0;
+  left: 0;
+}
+
+.moon {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #c0c0c0;
+  box-shadow: 0 0 8px rgba(255,255,255,0.6);
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
