@@ -4,13 +4,14 @@ import LogoPage from "./components/LogoPage"
 import ConnectPage from "./components/ConnectPage"
 import RulesPage from "./components/RulesPage"
 import WarpPage from "./components/WarpPage"
-
-
+import TriviaPage from "./components/TriviaPage"
+import ResultPage from "./components/ResultPage"
+import './trivia.css'
 
 function App() {
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState("logo")
-
+  const [result, setResult] = useState(null)
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 5000)
     return () => clearTimeout(timer)
@@ -37,6 +38,9 @@ function App() {
       {page === "logo" && <LogoPage onStart={() => setPage("connect")} />}
       {page === "connect" && <ConnectPage onNext={() => setPage("rules")} />}
       {page === "rules" && <RulesPage onNext={() => setPage("trivia")} />}
+        {page === "warp" && <WarpPage onNext={() => setPage("trivia")} />}
+{page === "trivia" && <TriviaPage onNext={(res) => { setResult(res); setPage("result") }} />}
+{page === "result" && <ResultPage result={result} onRestart={() => setPage("logo")} />}
     </div>
   )
 }
