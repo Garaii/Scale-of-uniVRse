@@ -2,9 +2,6 @@ import { useState } from "react"
 
 export default function RulesPage({ onNext }) {
   const [flipped, setFlipped] = useState({ voyager: false, navigator: false })
-  const [agreed, setAgreed] = useState(false)
-
-  const allFlipped = flipped.voyager && flipped.navigator
 
   return (
     <div className="rules-page">
@@ -38,7 +35,7 @@ export default function RulesPage({ onNext }) {
       <div className="connect-header">
         <p className="logo-sub">BEFORE YOU BEGIN</p>
         <h2 className="connect-title">Mission Briefing</h2>
-        <p className="rules-subtitle">Flip both cards to learn your role</p>
+        <p className="rules-subtitle">Tap the cards to learn your role</p>
       </div>
 
       <div className="cards-row">
@@ -95,21 +92,9 @@ export default function RulesPage({ onNext }) {
         🏆 WE WIN TOGETHER · WE LOSE TOGETHER
       </div>
 
-      {allFlipped && !agreed && (
-        <button className="agree-btn" onClick={() => setAgreed(true)}>
-          ✅ I UNDERSTAND MY ROLE
-        </button>
-      )}
-
-      {agreed && (
-        <button className="next-btn" onClick={onNext}>
-          START MISSION 🚀
-        </button>
-      )}
-
-      {!allFlipped && (
-        <p className="flip-hint">Flip both cards to continue</p>
-      )}
+      <button className="next-btn" onClick={onNext}>
+        START MISSION 🚀
+      </button>
 
     </div>
   )

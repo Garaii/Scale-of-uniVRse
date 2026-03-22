@@ -1,82 +1,72 @@
-import { useState, useEffect } from "react"
-import { generateQuestions, formatSize } from "../data/triviaData"
+import { useState, useEffect, useRef } from "react"
+import { watchSession, writeNavigatorAnswer, cleanupSession } from "../hooks/useSession"
+import { getAssetUrl } from "../data/assetMap"
 
-const LETTERS = ["A", "B", "C", "D"]
-const COLORS = ["#e63946", "#2a9d8f", "#e9c46a", "#457b9d"]
-const TIME_PER_Q = 20
+const LETTERS = ["A", "B", "C"]
+const COLORS = ["#e63946", "#2a9d8f", "#e9c46a"]
 
-function getVoyagerAnswer(options) {
-  return options[Math.floor(Math.random() * options.length)]
-}
-
-function calcScore(navAnswer, voyAnswer, correct) {
-  const navRight = navAnswer === correct
-  const voyRight = voyAnswer === correct
-  const same = navAnswer === voyAnswer
-
-  if (same && navRight) return { delta: 2, label: "🎉 BOTH CORRECT!", color: "#22c55e", detail: "+2 pts" }
-  if (same && !navRight) return { delta: 0, label: "💥 GAME OVER", color: "#ef4444", detail: "Same wrong answer!", gameOver: true }
-  if (!same && navRight) return { delta: 1, label: "✅ YOU'RE RIGHT!", color: "#86efac", detail: "+1 pt (Voyager missed it)" }
-  if (!same && voyRight) return { delta: 1, label: "🥽 VOYAGER GOT IT!", color: "#86efac", detail: "+1 pt (You missed it)" }
-  return { delta: -1, label: "❌ BOTH WRONG", color: "#f97316", detail: "-1 pt (Different wrong answers)" }
-}
-
-export default function TriviaPage({ onNext }) {
-  const [questions] = useState(generateQuestions)
-  const [qIndex, setQIndex] = useState(0)
+export default function TriviaPage({ sessionCode, onNext }) {
+  const [session, setSession] = useState(null)
   const [selected, setSelected] = useState(null)
-  const [voyagerPick, setVoyagerPick] = useState(null)
-  const [result, setResult] = useState(null)
-  const [score, setScore] = useState(0)
-  const [timeLeft, setTimeLeft] = useState(TIME_PER_Q)
-  const [gameOver, setGameOver] = useState(false)
-  const [phase, setPhase] = useState("question") // question | reveal | result
+  const unsubRef = useRef(null)
 
-  const q = questions[qIndex]
-
-  // Timer
+  // Subscribe to session updates
   useEffect(() => {
-    if (phase !== "question" || selected) return
-    if (timeLeft <= 0) { handleSelect(null); return }
-    const t = setTimeout(() => setTimeLeft(t => t - 1), 1000)
-    return () => clearTimeout(t)
-  }, [timeLeft, phase, selected])
+    if (!sessionCode) return
+    unsubRef.current = watchSession(sessionCode, setSession)
+    return () => unsubRef.current?.()
+  }, [sessionCode])
 
-  // Reset timer on new question
+  // Reset Navigator's selection when a new question arrives
+  const prevRoundRef = useRef(null)
   useEffect(() => {
-    setTimeLeft(TIME_PER_Q)
-    setSelected(null)
-    setVoyagerPick(null)
-    setResult(null)
-    setPhase("question")
-  }, [qIndex])
+    if (!session) return
+    const round = session.round
+    if (round !== prevRoundRef.current) {
+      prevRoundRef.current = round
+      setSelected(null)
+    }
+  }, [session?.round])
 
-  function handleSelect(answer) {
+  // React to terminal states
+  useEffect(() => {
+    if (!session) return
+    if (session.status === "gameover") {
+      setTimeout(() => {
+        cleanupSession(sessionCode)
+        onNext({ score: session.score, total: session.round, reason: "gameover" })
+      }, 3000)
+    } else if (session.status === "complete") {
+      setTimeout(() => {
+        cleanupSession(sessionCode)
+        onNext({ score: session.score, total: session.round, reason: "complete" })
+      }, 3000)
+    }
+  }, [session?.status])
+
+  async function handleSelect(answer) {
     if (selected) return
-    const voy = getVoyagerAnswer(q.options)
-    const res = calcScore(answer, voy, q.correct)
-
-    setSelected(answer || "⏱ TIME UP")
-    setVoyagerPick(voy)
-    setResult(res)
-    setPhase("reveal")
-
-    setTimeout(() => {
-      const newScore = score + res.delta
-      setScore(newScore)
-      if (res.gameOver) {
-        setGameOver(true)
-        onNext({ score: newScore, total: qIndex + 1, reason: "gameover" })
-      } else if (qIndex + 1 >= questions.length) {
-        onNext({ score: newScore, total: questions.length, reason: "complete" })
-      } else {
-        setQIndex(i => i + 1)
-      }
-    }, 3000)
+    setSelected(answer)
+    await writeNavigatorAnswer(sessionCode, answer)
   }
 
-  const timerPct = (timeLeft / TIME_PER_Q) * 100
-  const timerColor = timeLeft > 10 ? "#22c55e" : timeLeft > 5 ? "#f59e0b" : "#ef4444"
+  if (!session) {
+    return (
+      <div className="trivia-page">
+        <div className="trivia-body" style={{ justifyContent: "center", alignItems: "center" }}>
+          <p style={{ color: "#7d8590", fontFamily: "'Orbitron', monospace", fontSize: "14px" }}>
+            Waiting for session...
+          </p>
+        </div>
+      </div>
+    )
+  }
+
+  const { status, score, round, question, voyagerAnswer, result } = session
+  const phase = status // "question" | "reveal" | "gameover" | "complete"
+  const objects = question?.objects ?? []
+  const correct = question?.correctAnswer
+  const prompt = question?.prompt ?? "Which is the LARGEST?"
 
   return (
     <div className="trivia-page">
@@ -88,104 +78,95 @@ export default function TriviaPage({ onNext }) {
           <span className="score-value">{score}</span>
         </div>
         <div className="trivia-progress">
-          {questions.map((_, i) => (
-            <div
-              key={i}
-              className={`progress-dot ${i < qIndex ? "done" : i === qIndex ? "active" : ""}`}
-            />
-          ))}
+          <span style={{ fontFamily: "'Orbitron', monospace", fontSize: "12px", color: "#7d8590" }}>
+            ROUND {round}
+          </span>
         </div>
-        <div className="trivia-timer" style={{ color: timerColor }}>
-          <span className="timer-value">{timeLeft}</span>
-          <span className="timer-label">sec</span>
+        <div className="voyager-status" style={{ margin: 0, padding: 0 }}>
+          {phase === "question"
+            ? (voyagerAnswer ? "🥽 Voyager answered" : "🥽 Voyager is thinking...")
+            : `🥽 Voyager: ${voyagerAnswer ?? "—"}`}
         </div>
-      </div>
-
-      {/* Timer bar */}
-      <div className="timer-bar-track">
-        <div
-          className="timer-bar-fill"
-          style={{ width: `${timerPct}%`, background: timerColor }}
-        />
       </div>
 
       {/* Question */}
       <div className="trivia-body">
         <div className="q-meta">
-          <span className="q-number">Q{qIndex + 1} of {questions.length}</span>
-          <span className="q-type">{q.type === "comparison" ? "⚖️ Size Battle" : "🔍 Guess the Element"}</span>
+          <span className="q-number">Round {round}</span>
+          <span className="q-type">⚖️ Size Battle</span>
         </div>
 
         <div className="q-card">
-          {q.type === "guess" && (
-            <div className="q-category">📂 {q.category}</div>
-          )}
-          <p className="q-question">{q.question}</p>
-          <p className="q-hint">{q.hint}</p>
-
-          {/* Show sizes for comparison questions */}
-          {q.type === "comparison" && (
-            <div className="comparison-sizes">
-              <div className="comp-item">
-                <span className="comp-name">{q.elemA.name}</span>
-                <span className="comp-size">{formatSize(q.elemA.size_m)}</span>
-              </div>
-              <div className="comp-vs">VS</div>
-              <div className="comp-item">
-                <span className="comp-name">{q.elemB.name}</span>
-                <span className="comp-size">{formatSize(q.elemB.size_m)}</span>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Voyager status */}
-        <div className="voyager-status">
-          <span className="voyager-dot" />
-          {phase === "question"
-            ? "🥽 Voyager is thinking..."
-            : `🥽 Voyager picked: ${voyagerPick}`
-          }
+          <p className="q-question">{prompt}</p>
         </div>
 
         {/* Options */}
-        <div className={`options-grid ${q.options.length === 2 ? "two-col" : "four-col"}`}>
-          {q.options.map((opt, i) => {
-            const isCorrect = opt === q.correct
-            const isSelected = opt === selected
-            const isVoyager = opt === voyagerPick
+        {objects.length > 0 && (
+          <div className={`options-grid ${objects.length === 2 ? "two-col" : "two-col"}`}>
+            {objects.map((obj, i) => {
+              const isCorrect = obj.name === correct
+              const isSelected = obj.name === selected
+              const isVoyager = obj.name === voyagerAnswer
+              const imgSrc = getAssetUrl(obj.name)
 
-            let optClass = "option-btn"
-            if (phase === "reveal") {
-              if (isCorrect) optClass += " correct"
-              else if (isSelected && !isCorrect) optClass += " wrong"
-              else optClass += " dimmed"
-            }
+              let optClass = "option-btn"
+              if (imgSrc) optClass += " opt-has-img"
+              if (phase === "reveal" || phase === "gameover" || phase === "complete") {
+                if (isCorrect) optClass += " correct"
+                else if (isSelected && !isCorrect) optClass += " wrong"
+                else optClass += " dimmed"
+              }
 
-            return (
-              <button
-                key={opt}
-                className={optClass}
-                style={{ "--opt-color": COLORS[i] }}
-                onClick={() => phase === "question" && handleSelect(opt)}
-                disabled={phase === "reveal"}
-              >
-                <span className="opt-letter">{LETTERS[i]}</span>
-                <span className="opt-text">{opt}</span>
-                {phase === "reveal" && isVoyager && (
-                  <span className="voyager-tag">🥽</span>
-                )}
-                {phase === "reveal" && isCorrect && (
-                  <span className="correct-tag">✓</span>
-                )}
-              </button>
-            )
-          })}
-        </div>
+              return (
+                <button
+                  key={obj.name}
+                  className={optClass}
+                  style={{ "--opt-color": COLORS[i % COLORS.length] }}
+                  onClick={() => phase === "question" && !selected && handleSelect(obj.name)}
+                  disabled={phase !== "question" || !!selected}
+                >
+                  {imgSrc && <img src={imgSrc} alt={obj.name} className="opt-img" />}
+                  <div className="opt-row">
+                    <span className="opt-letter">{LETTERS[i]}</span>
+                    <span className="opt-text">{obj.name}</span>
+                    {(phase === "reveal" || phase === "gameover") && isVoyager && (
+                      <span className="voyager-tag">🥽</span>
+                    )}
+                    {(phase === "reveal" || phase === "gameover") && isCorrect && (
+                      <span className="correct-tag">✓</span>
+                    )}
+                  </div>
+                </button>
+              )
+            })}
+          </div>
+        )}
+
+        {/* Waiting for Navigator to answer */}
+        {phase === "question" && !selected && (
+          <div className="voyager-status">
+            <span className="voyager-dot" />
+            Pick your answer above
+          </div>
+        )}
+
+        {/* Waiting for Voyager after Navigator answered */}
+        {phase === "question" && selected && !voyagerAnswer && (
+          <div className="voyager-status">
+            <span className="voyager-dot" />
+            🥽 Waiting for Voyager...
+          </div>
+        )}
 
         {/* Result banner */}
-        {result && (
-          <div className="result-banner" style={{ background: result.color + "22", borderColor: result.color }}>
+        {result && (phase === "reveal" || phase === "gameover" || phase === "complete") && (
+          <div
+            className="result-banner"
+            style={{
+              background: (result.gameOver ? "#ef4444" : "#22c55e") + "22",
+              borderColor: result.gameOver ? "#ef4444" : "#22c55e"
+            }}
+          >
             <div className="result-label">{result.label}</div>
             <div className="result-detail">{result.detail}</div>
           </div>

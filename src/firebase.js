@@ -4,6 +4,7 @@ import { getDatabase } from "firebase/database";
 const firebaseConfig = {
   apiKey: "AIzaSyBzZtjU9B4E87viNfWBIvgu8FbJ7UrciuA",
   authDomain: "scale-of-the-univrse.firebaseapp.com",
+  databaseURL: "https://scale-of-the-univrse-default-rtdb.firebaseio.com",
   projectId: "scale-of-the-univrse",
   storageBucket: "scale-of-the-univrse.firebasestorage.app",
   messagingSenderId: "447028819659",
@@ -12,3 +13,4 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+export const db = getDatabase(app);

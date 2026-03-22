@@ -515,6 +515,29 @@ html, body, #root {
   box-shadow: 0 0 24px rgba(34,197,94,0.4);
 }
 
+/* ===== ROOM CODE DISPLAY ===== */
+.room-code-display {
+  display: flex;
+  gap: 10px;
+  margin: 16px 0 8px;
+}
+.room-code-char {
+  font-family: 'Orbitron', monospace;
+  font-size: 36px;
+  font-weight: 700;
+  color: #38bdf8;
+  background: rgba(56,189,248,0.1);
+  border: 2px solid rgba(56,189,248,0.5);
+  border-radius: 10px;
+  width: 56px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 16px rgba(56,189,248,0.3);
+  letter-spacing: 0;
+}
+
 /* ===== RULES PAGE ===== */
 .rules-page {
   display: flex;

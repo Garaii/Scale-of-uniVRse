@@ -12,6 +12,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState("logo")
   const [result, setResult] = useState(null)
+  const [sessionCode, setSessionCode] = useState(null)
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 5000)
     return () => clearTimeout(timer)
@@ -33,14 +34,12 @@ function App() {
           }} />
         ))}
       </div>
+      {page === "logo" && <LogoPage onStart={() => setPage("connect")} />}
+      {page === "connect" && <ConnectPage onNext={(code) => { setSessionCode(code); setPage("rules") }} />}
       {page === "rules" && <RulesPage onNext={() => setPage("warp")} />}
       {page === "warp" && <WarpPage onNext={() => setPage("trivia")} />}
-      {page === "logo" && <LogoPage onStart={() => setPage("connect")} />}
-      {page === "connect" && <ConnectPage onNext={() => setPage("rules")} />}
-      {page === "rules" && <RulesPage onNext={() => setPage("trivia")} />}
-        {page === "warp" && <WarpPage onNext={() => setPage("trivia")} />}
-{page === "trivia" && <TriviaPage onNext={(res) => { setResult(res); setPage("result") }} />}
-{page === "result" && <ResultPage result={result} onRestart={() => setPage("logo")} />}
+      {page === "trivia" && <TriviaPage sessionCode={sessionCode} onNext={(res) => { setResult(res); setPage("result") }} />}
+      {page === "result" && <ResultPage result={result} onRestart={() => { setSessionCode(null); setPage("logo") }} />}
     </div>
   )
 }
