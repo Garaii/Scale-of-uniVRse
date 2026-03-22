@@ -55,7 +55,6 @@ The universe has a scale. From the tiniest subatomic particles to galaxy cluster
 | Styling | Tailwind CSS + Custom CSS |
 | Typography | Orbitron (Google Fonts) |
 | Realtime sync | Firebase Realtime Database |
-| Hosting | Vercel (planned) |
 
 ---
 
