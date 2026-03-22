@@ -1,6 +1,6 @@
 # 🪐 Scale of the UniVRse
 
-> **WE WIN TOGETHER · WE LOSE TOGETHER**
+> **Two minds, one universe**
 
 A cooperative educational VR companion app where one player explores the universe through a VR headset while their partner guides them from a tablet. Together, they discover the scale of everything — from quarks to the observable universe — and answer trivia questions as a team.
 
