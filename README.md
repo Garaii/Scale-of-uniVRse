@@ -25,7 +25,6 @@ The universe has a scale. From the tiniest subatomic particles to galaxy cluster
 - Flip card mission briefing for both roles
 
 ### 🌌 Trivia Game
-- **5 questions** per session — randomly generated each game
 - Two question types:
   - **⚖️ Size Battle** — which of these two objects is larger?
   - **🔍 Guess the Element** — identify the object from a fun fact
@@ -41,7 +40,7 @@ The universe has a scale. From the tiniest subatomic particles to galaxy cluster
 | Both wrong (same answer) | 💥 GAME OVER |
 
 ### 🗺️ Scale Explorer (coming soon)
-- Browse 11 scale levels from quarks (`10⁻¹⁵ m`) to the observable universe (`10²⁶ m`)
+- Browse scale levels from quarks (`10⁻¹⁵ m`) to the observable universe (`10²⁶ m`)
 - Tap objects for fun facts and detailed info cards
 - Side-by-side size comparison with visual bars
 
