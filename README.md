@@ -1,4 +1,4 @@
-# 🪐 Scale of the UniVRse
+# 🪐 Scale of the UniVRse APP
 
 > **Two minds, one universe**
 
